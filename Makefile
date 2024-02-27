@@ -11,7 +11,6 @@ SOURCES = get_next_line_bonus.c \
           here_doc.c \
 		  utils.c \
 		  piping.c \
-		  parser.c \
           main.c \
 
 SOURCES_BONUS = get_next_line_bonus.c \
@@ -19,7 +18,6 @@ SOURCES_BONUS = get_next_line_bonus.c \
 				here_doc.c \
 				utils.c \
 				piping.c \
-				parser.c \
 				main_bonus.c \
 
 LIBFT = libft

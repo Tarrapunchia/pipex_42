@@ -6,7 +6,7 @@
 /*   By: fzucconi <fzucconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:29:40 by fzucconi          #+#    #+#             */
-/*   Updated: 2024/02/27 17:55:44 by fzucconi         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:11:13 by fzucconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_exe(char *argv, t_pipex **pipex, char **envp)
 	if (execve((*pipex)->cmd, (*pipex)->args, envp) == -1)
 		error(4, pipex);
 }
+
 t_pipex	*pipex_init(void)
 {
 	t_pipex	*out;
@@ -75,7 +76,6 @@ t_pipex	*pipex_init(void)
 	out->paths = NULL;
 	out->args = NULL;
 	out->cmd = NULL;
-
 	return (out);
 }
 
@@ -85,7 +85,7 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	*pipex;
 
 	pipex = pipex_init();
-	errors(argc, pipex);
+	errors(argc, &pipex);
 	pipex->paths = split_paths(envp, &pipex);
 	if (!pipex->paths)
 		error(1, &pipex);

@@ -6,7 +6,7 @@
 /*   By: fzucconi <fzucconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:29:40 by fzucconi          #+#    #+#             */
-/*   Updated: 2024/02/27 17:52:39 by fzucconi         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:10:55 by fzucconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ t_pipex	*pipex_init(void)
 	out->paths = NULL;
 	out->args = NULL;
 	out->cmd = NULL;
-
 	return (out);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fzucconi <fzucconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 13:37:29 by fzucconi          #+#    #+#             */
-/*   Updated: 2024/02/27 17:49:55 by fzucconi         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:19:02 by fzucconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ void	free_all(t_pipex **pipex)
 	if ((*pipex)->args)
 		free((*pipex)->args);
 	(*pipex)->args = NULL;
+	free_all2(pipex);
+}
+
+void	free_all2(t_pipex **pipex)
+{
+	int	i = 0;
+
+	i = 0;
 	while ((*pipex)->paths && (*pipex)->paths[i])
 	{
 		free((*pipex)->paths[i]);
@@ -44,9 +52,9 @@ void	free_all(t_pipex **pipex)
 		free((*pipex)->cmd);
 		(*pipex)->cmd = NULL;
 	}
-	if ((*pipex)->infile)
+	if ((*pipex)->infile >= 0)
 		close((*pipex)->infile);
-	if ((*pipex)->outfile)
+	if ((*pipex)->outfile >= 0)
 		close((*pipex)->outfile);
 	free(*pipex);
 }
@@ -87,20 +95,6 @@ void	errors(int argc, t_pipex **pipex)
 		error(8, pipex);
 }
 
-void	free_paths(char **paths)
-{
-	int	i;
-
-	i = 0;
-	while (paths[i])
-	{
-		free(paths[i]);
-		paths[i] = NULL;
-		i++;
-	}
-	free(paths);
-}
-
 int	shorter(char **argv, int argc, t_pipex **pipex)
 {
 	int	i;
@@ -111,7 +105,8 @@ int	shorter(char **argv, int argc, t_pipex **pipex)
 		if (argc < 6)
 			error(1, pipex);
 		i = 3;
-		(*pipex)->outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
+		(*pipex)->outfile = open(argv[argc - 1],
+				O_WRONLY | O_CREAT | O_APPEND, 0777);
 		here_doc(argv[2], pipex);
 	}
 	else
@@ -120,7 +115,8 @@ int	shorter(char **argv, int argc, t_pipex **pipex)
 		(*pipex)->infile = open(argv[1], O_RDONLY);
 		if ((*pipex)->infile < 0)
 			error(9, pipex);
-		(*pipex)->outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		(*pipex)->outfile = open(argv[argc - 1],
+				O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		dup2((*pipex)->infile, STDIN_FILENO);
 	}
 	return (i);

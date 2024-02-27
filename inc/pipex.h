@@ -6,7 +6,7 @@
 /*   By: fzucconi <fzucconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 13:37:39 by fzucconi          #+#    #+#             */
-/*   Updated: 2024/02/27 17:40:14 by fzucconi         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:17:47 by fzucconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ typedef struct s_pipex
 {
 	int		infile;
 	int		outfile;
-	char 	**paths;
+	char	**paths;
 	char	**args;
 	char	*cmd;
 }	t_pipex;
-
 
 /* ************************************************************************** */
 /*							HERE_DOC.c										  */
@@ -46,6 +45,7 @@ void	here_doc(char *doc, t_pipex **pipex);
 void	error(int err_n, t_pipex **pipex);
 void	errors(int argc, t_pipex **pipex);
 void	free_all(t_pipex **pipex);
+void	free_all2(t_pipex **pipex);
 
 /* ************************************************************************** */
 /*						MAIN/MAIN_BONUS.c									  */
@@ -58,8 +58,4 @@ void	piping_last(char *argv, t_pipex **pipex, char **envp);
 int		shorter(char **argv, int argc, t_pipex **pipex);
 void	free_paths(char **paths);
 
-// parser
-char	**parser (char *argv);
-int		get_word_count(char *str);
-int		cmd_len(char* str);
 #endif
