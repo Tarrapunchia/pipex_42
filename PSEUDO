@@ -1,0 +1,28 @@
+main:
+	controllo dimensione argc < 5 -> exit
+	se here_doc
+		controllo dimensione < 6 -> exit
+		counter a 3
+		outfile aperto (infile e' here_doc)
+	altrimenti
+		counter a 2
+		infile aperto
+		outfile aperto
+		duplico infile su stdin
+	finche' (counter < argc - 2)
+		creo la pipe ed eseguo il comando [crea pipe]
+	duplico outfile su stdout
+	eseguo ultimo comando (argv[argc - 2])
+
+crea pipe: var pid_t pid; int fd[2];
+	faccio il pipe ed il check -> exit
+	faccio il fork ed il check -> exit
+	se figlio
+		chiudo fd[0]
+		duplico fd[1] su stdin
+		controllo path e comando e argomenti -> free e exit
+		eseguo il comando? -> free e exit
+	se padre
+		chiudo fd[1]
+		duplico fd[0] su stdin
+
